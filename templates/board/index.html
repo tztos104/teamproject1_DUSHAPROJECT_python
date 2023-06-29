@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section id="a" xmlns="http://www.w3.org/1999/html">
+    <section id="b">
+        <div class="intro_bg">
+            <video src="{% static '/video/bg.mp4' %}" autoplay muted loop></video>
+            <div class="header_index">
+                <div class="logo">
+                    <a href="/">
+                        <img src="/static/images/logo.png">
+                    </a>
+                </div>
+                <div class="gnb">
+                    <!--                <div class="searchArea">
+                                        <form>
+                                            <input type="search" placeholder="Search">
+                                            <span>검색</span>
+                                        </form>
+                                    </div>-->
+                    <ul class="nav_intro">
+                        <!--                    {% if email.is_authenticated %}-->
+                        <!--                    <li><a href="{% url 'common:logout' %}"><img src="{% static '/images/cart_bk.svg' %}" class="icon"></a></li>-->
+                        <!--                        Logout-->
+                        <!--                    </a></li>-->
+                        <!--                    {% else %}-->
+                        <!--                    <li><a href="{% url 'account_login' %}"><img src="{% static '/images/my_bk.svg' %}" class="icon"></a></li>-->
+                        <!--                    {% endif %}-->
+                        <!--                    <li><a href="{% url 'cart:detail'%}"><img src="{% static '/images/cart_bk.svg' %}" class="icon"></a></li>-->
+                        <!--                    <li><a href=""><img src="{% static '/images/sch.svg' %}" class="icon"></a></li>-->
+
+                        <li><a href="#">SEARCH</a></li>
+                        <li><a href="{% url 'account_login' %}">LOGIN</a></li>
+                        <li><a href="{% url 'cart:detail'%}">CART</a></li>
+                        <li><a href="{% url 'account_login' %}">SIGNUP</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="intro_text">DUSHA even makes your soul smell good.</p>
+        </div>
+
+    </section>
+    <section id="c">
+        <ul class="amount">
+            <li>
+                <div>
+                    <div class="contents1">SPECIAL GIFT EVENT</div>
+                    <div class="result">딥디크 브랜드 파우치 증정</div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div class="contents1">커스텀 선물 포장 패키지</div>
+                    <div class="result">직접고르는 선물포장 서비스</div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div class="contents1">New Brand Free Gift Event</div>
+                    <div class="result">바디워시 샘플 3종 증정</div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div class="contents1">감도를 채워줄 나만의 향수</div>
+                    <div class="result">1:1 맞춤 추천</div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section id="d">
+        <div class="main_text0">
+            <h1>DUSHA</h1>
+            <div class="contents1">향을 찾아드리고 전달 드리는 모든 과정 속에서<br>
+                ‘제품 구매’ 그 이상의 경험을 느끼실 수 있도록,
+                퍼퓸그라피가 고객님만을 위한 향수 전문가가 되어드리겠습니다.
+            </div>
+
+            <ul class="icons">
+                <li>
+                    <div class="icon_img">
+                        <img src="static/images/social-care.png">
+                    </div>
+                    <div class="contents1_bold"><100% 직수입, 본사 검수></div>
+                    <div class="contents2">
+                        국가 기관에 정식으로 등록된 향수 전문 셀렉트샵으로,
+                        오직 정품만 취급하고 정식품질관리를 통해
+                        엄격한 품질관리를 유지하고 있습니다
+                    </div>
+                    <div class="ex1">
+                        <img src="static/images/01.png">
+                    </div>
+                    <!--                <div class="more">
+                                        MORE
+                                    </div>-->
+                </li>
+
+                <li>
+                    <div class="icon_img">
+                        <img src="static/images/like.png">
+                    </div>
+                    <div class="contents1_bold">
+                        <p>
+                            <향기에 깊이를 더해주는 시향 컨텐츠>
+                        </p>
+                    </div>
+                    <div class="contents2">
+                        향수 맞춤 추천, 시각적 이미지 등 향기에 대한 더욱 섬세하고 전문적인 인사이트까지
+                        제공하며 향기에 깊이를 더해드릴 수 있도록 도움을 드리고 있습니다.
+                    </div>
+                    <div class="ex2">
+                        <img src="static/images/02.png">
+                    </div>
+                    <!--                <div class="more">
+                                        MORE
+                                    </div>-->
+                </li>
+
+                <li>
+                    <div class="icon_img">
+                        <img src="static/images/truck.png">
+                    </div>
+                    <div class="contents1_bold">
+                        <꼼꼼하고 안전한 포장, 당일 발송>
+                    </div>
+                    <div class="contents2">
+                        두샤에서만 제공하는 커스텀 선물 포장으로 고객님드르이 소중한 마음까지 전달될 수 있도록 노력하고 있습니다.
+                        또한, 14시 이전 주문 건은 모두 당일 출고해드리고 있습니다.
+                    </div>
+                    <div class="ex3">
+                        <img src="static/images/03.png">
+                    </div>
+                    <!--                <div class="more">
+                                        MORE
+                                    </div>-->
+                </li>
+            </ul>
+        </div>
+
+        <div class="main_text1">
+            <h1>OUR SERVICE</h1>
+            <div class="contents1">
+                온라인 샵에서 제공하는 제품들을 백화점과는 달리<br>
+                매우 자유로운 분위기 속에서 마음껏 시향하실 수 있는
+                오프라인 스토어를 운영 중이며, <br>
+                직원들의 전문적인 취향 맞춤 추천서비스를<br>
+                받아 보실 수 있는 공간입니다.
+            </div>
+            <div class="service">
+                <div class="S_photo">
+                    <img src="static/images/04.png">
+                </div>
+                <div class="contents2">
+                    <h2>OUR VISION</h2>
+                    고객님들의 목소리를 귀담아 들으며
+                    ‘제품 구매’ 그 이상의 경험을 제공해드리기 위해 끊임없이 고민하고 있습니다.<br>
+                    고객님들이 원하시는 향기를 마음껏 즐기실 수 있게, 더 나아가 향기에 깊이를 더할 수 있도록<br>
+                    퍼퓸그라피가 고객님들에게 다가가겠습니다.
+                </div>
+            </div>
+        </div>
+
+        <div class="main_text2">
+            <ul>
+                <li>
+                    <div><h1>DUSHA</h1></div>
+                    <div>DUSHA even makes your soul smell good.</div>
+                    <div class="more2">더 알아보기</div>
+                </li>
+                <li></li>
+            </ul>
+        </div>
+        </div>
+
+    </section>
+    <section id="4"></section>
+    <section id="5"></section>
+</section>
+<!--<div class="top"><a>NEW프래그런스 시트러스 컬렉션</a></div>&ndash;&gt;-->
+
+
+<!-- intro end -->
+
+<!-- amount end -->
+
+
+{% endblock %}
+{% include 'footer.html' %}

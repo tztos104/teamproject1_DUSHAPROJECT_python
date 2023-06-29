@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <section id="detail">
+        <h2 class="border-bottom py-2">{{ question.subject }}</h2>
+        <div class="card my-3">
+            <div class="card-body">
+                <!-- 줄바꿈 style="white-space: pre-line"-->
+                <div class="card-text" style="white-space: pre-line">
+                    {{ question.content }}  <!-- 질문 내용 -->
+                </div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-info text-start">
+                        <div class="mb-2">{{ question.author }}</div>
+                        <div>{{ question.create_date }}</div>
+                    </div>
+                </div>
+                <!-- 글쓴이가 로그인한 사람과 일치하면 -->
+                {% if question.author == request.user %}
+                <div>
+                    <a href="{% url 'board:question_modify' question.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <a href="#"
+                       data-uri="{% url 'board:question_delete' question.id %}"
+                       class="delete btn btn-sm btn-online-secondary">삭제</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <h5 class="border-bottom my-3 py-2">
+            {{ question.answer_set.count }} 개의 답변이 있습니다.
+        </h5>
+        {% for answer in question.answer_set.all %}
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="card-text" style="white-space: pre-line">
+                    {{ answer.content }}    <!-- 답변 내용 -->
+                </div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-dark text-start">
+                        <div class="mb-2">{{ answer.author }}</div>
+                        <div>{{ answer.create_date }}</div>
+                    </div>
+                </div>
+                <!-- 글쓴이가 로그인한 사람과 일치하면 -->
+                {% if answer.author == request.user %}
+                <div>
+                    <a href="{% url 'board:answer_modify' answer.id %}" class="modify btn btn-sm btn-online-secondary">수정</a>
+                    <a href="#"
+                       data-uri="{% url 'board:answer_delete' answer.id %}"
+                       class="delete btn btn-sm btn-online-secondary">삭제</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- 답변 등록 폼 -->
+        <form action="{% url 'board:answer_create' question.id %}"
+                        method="post">
+            {% csrf_token %} <!-- 필수 : 403 권한 데러 발생 -->
+            {% include 'form_errors.html' %}
+            <div class="form-group">
+                <textarea name="content" rows="10"
+                          cols="50" class="form-control mb-3"
+                    {% if not user.is_authenticated %}disabled{% endif %}></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">답변 등록</button>
+        </form>
+    </section>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function(){
+        $('.delete').click(function(){  // 삭제 버튼을 클릭하면
+            if(confirm('정말 삭제하시겠습니까?')){
+                location.href=$(this).data('uri');  // 현재 대상 객체의 주소를 이동
+            }
+        });
+    });
+</script>
+{% endblock %}

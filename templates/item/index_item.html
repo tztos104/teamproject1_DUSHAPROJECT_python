@@ -1,0 +1,27 @@
+{% extends 'base.html' %}{% load humanize %}
+{% load static %}
+{% block content %}
+<div class="container my-3">
+<div class="slider">
+    {% for item in best_list %}
+    <div class="card">
+      <!-- 배스트 상품 이미지 -->
+
+      <div class="product-info">
+        <!-- 상품명-->
+        <div class="item-title">{{item.item_title}}</div>
+          <div class>
+        <a href="#">
+          <img src="{{item.item_image.url}}" alt="상품이미지" width="300px" >
+        </a>
+      </div>
+        <!-- 상품상세 내용 -->
+        <div class="item-subtitle color-8D">{{item.content}}</div>
+        <!-- 가격 -->
+        <div>{{item.item_price|intcomma}}원</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

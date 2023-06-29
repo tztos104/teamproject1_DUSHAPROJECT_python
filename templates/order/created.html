@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+
+{% block content %}
+<div >
+  <div >
+    <div>
+      주문
+    </div>
+    <ul>
+      {% for item in cart %}
+        <li class="list-group-item">
+          수량: {{item.quantity}} 제품명: {{item.item.item_title}}
+          <span>{{item.total_price}}</span>
+        </li>
+      {% endfor %}
+      {% if cart.coupon %}
+        <li class="list-group-item">
+              "{{cart.coupon.code}}" ({{cart.coupon.discount}}원 off)
+
+          <span>- ${{ cart.get_discount_total|floatformat:"2" }}</span>
+        </li>
+      {% endif %}
+    </ul>
+
+      <div>Total : {{ cart.get_total_price|floatformat:"2" }}</div>
+
+      <!-- form-->
+      <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="hidden" name="pre_order_id" value="0">
+        <input type="hidden" name="discount" value="{{ cart.get_total_price|floatformat:'2'}}">
+        <input type="submit" name="btn btn-primary float-right" value="PlaceOrder">
+      </form>
+  </div>
+</div>
+{% endblock %}

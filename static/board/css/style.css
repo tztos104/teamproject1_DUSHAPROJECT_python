@@ -1,0 +1,992 @@
+@charset "UTF-8";
+
+*{margin:0; padding:0;}
+a{text-decoration:none; color: black;}
+li{list-style:none}
+contents{width: 100%;}
+
+/* header */
+
+/*top 이벤트*/
+header .top{
+    color:white;
+    width: 100%;
+    height : 20px;
+    background-color: black;
+    text-align:center;
+}
+header .top a{
+    color : #FFFFFF;
+}
+
+/* header logo*/
+
+header .logo img {
+    float:left;
+    padding: 10px;
+    margin-left: 20px;
+    width: 120px;
+}
+
+/* header */
+header .gnb{
+    background-color: #ffffff00;
+    width: 100%;
+    flex: content;
+
+}
+
+header .gnb ul{
+    margin-top : 10px;
+    height : 30px;
+    text-align : right;
+}
+header .gnb ul li{
+    float : right;
+    width : 80px;
+    margin: 0 5px;
+}
+
+header .icon{ width :20px; }
+
+header .gnb ul li a{
+     font-weight: bold;
+}
+
+/* nav */
+/* 노멀라이즈 시작 */
+body, ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;          /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
+}
+
+a {
+  color: inherit;          /* 부모 엘리먼트의 값을 물려받는다 */
+  text-decoration: none;    /* 해당 태그의 text-decoration 속성을 none 값으로 하는 것으로 밑줄을 제거한다 */
+}
+/* 노멀라이즈 끝 */
+/* 2차 이상의 메뉴를 숨기기 */
+.side-bar > ul ul {
+  display: none;
+}
+
+
+/* 사이드바의 너비와 높이를 변수를 통해 통제 */
+:root {
+  --side-bar-width: 200px;
+  --side-bar-height: 90vh;
+}
+
+.side-bar {
+  position: fixed;    /* 스크롤을 따라오도록 지정 */
+  background-color: #ccc;
+  opacity:0.7;
+  width: var(--side-bar-width);
+  min-height: var(--side-bar-height);   /* 사이드바의 높이를 전체 화면 높이의 90%로 지정 */
+  margin-top: calc((100vh - var(--side-bar-height)) / 2);    /* 사이드바 위와 아래의 마진을 동일하게 지정 */
+}
+
+/* 모든 메뉴의 a에 속성값 부여 */
+.side-bar ul > li > a {
+  display: block;
+  color: white;
+  font-size: 1rem;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 50px;
+}
+
+/* 자식의 position이 absolute일 때 자식을 영역 안에 가두어 준다 */
+.side-bar > ul > li {
+  position: relative;
+}
+
+/* 모든 메뉴가 마우스 인식 시 반응 */
+.side-bar ul > li:hover > a {
+  background-color: #555;
+  border-bottom: 1px solid #999;
+}
+
+/* 1차 메뉴의 항목이 마우스 인식 시에 2차 메뉴 등장 */
+.side-bar > ul > li:hover > ul {
+  display: block;
+  position: absolute;
+  background-color: #888;
+  top: 0;         /* 2차 메뉴의 상단을 1차 메뉴의 상단에 고정 */
+  left: 100%;     /* 2차 메뉴를 1차 메뉴의 너비만큼 이동 */
+  width: 100%;    /* 1차 메뉴의 너비를 상속 */
+}
+
+/* 사이드바 너비의 80%만큼 왼쪽으로 이동 */
+.side-bar {
+  border-radius: 20px;
+  transform: translate(calc(var(--side-bar-width) * -0.8), 0);  /* X축 이동, Y축 고정 */
+  transition: .5s;
+}
+
+/* 마우스 인식 시 원래의 위치로 이동 */
+.side-bar:hover {
+  transform: translate(-20px, 0);   /* 둥근 모서리의 너비만큼 X축 이동, Y축 고정 */
+}
+
+/* nav 끝 */
+/* 사이드바 스타일 */
+#slider-wrap {
+    width: 100%;
+    height: 400px;
+    margin : 100 0 0 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+#slider-wrap ul#slider {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#slider-wrap ul#slider li {
+    float: left;
+    position: relative;
+    width: 400px;
+    height: 400px;
+}
+
+#slider-wrap ul#slider li>div {
+    position: absolute;
+    top: 20px;
+    left: 35px;
+}
+
+#slider-wrap ul#slider li>div h3 {
+    font-size: 36px;
+    text-transform: uppercase;
+}
+
+#slider-wrap ul#slider li>div span {
+    font-size: 21px;
+}
+
+#slider-wrap ul#slider li img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/*btns*/
+.slider-btns {
+    position: absolute;
+    width: 50px;
+    height: 60px;
+    top: 50%;
+    margin-top: -25px;
+    line-height: 57px;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+    -webkit-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+}
+
+.slider-btns:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#next {
+    right: -50px;
+    border-radius: 7px 0px 0px 7px;
+    color: #eee;
+}
+
+#previous {
+    left: -50px;
+    border-radius: 0px 7px 7px 7px;
+    color: #eee;
+}
+
+#slider-wrap.active #next {
+    right: 0px;
+}
+
+#slider-wrap.active #previous {
+    left: 0px;
+}
+
+/*bar*/
+#slider-pagination-wrap {
+    min-width: 20px;
+    margin-top: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15px;
+    position: relative;
+    text-align: center;
+}
+
+#slider-pagination-wrap ul {
+    width: 100%;
+}
+
+#slider-pagination-wrap ul li {
+    margin: 0 4px;
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.5;
+    position: relative;
+    top: 0;
+}
+
+#slider-pagination-wrap ul li.active {
+    width: 12px;
+    height: 12px;
+    top: 3px;
+    opacity: 1;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 0px;
+}
+
+/*ANIMATION*/
+#slider-wrap ul,
+#slider-pagination-wrap ul li {
+    -webkit-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
+    -o-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
+    transition: all 0.3s cubic-bezier(1, .01, .32, 1);
+}
+
+/* login */
+#login{
+    margin-left:200px;
+}
+
+#login .form-group input{
+   width: 250px;
+}
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;          /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
+}
+
+.container .login_form{
+    width: 404px;
+}
+.container #login{
+    width: 400px;
+    margin: 0 auto;
+}
+.container .login_form h4, .signup_form h4{
+    text-align: center;
+    font-size: 2em;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.container .login_form label{
+    width: 100%;
+    margin-bottom: 30px;
+}
+.container .id_form, pw_form, click{
+    margin-bottom: 30px;
+}
+.container input{
+    width: 100%;
+    height: 30px;
+    margin-top: 0px;
+}
+.container .button_login, .button_signup{
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.container .button_signup{
+    width: 100%;
+    height: 30px;
+    margin-top: 40px;
+}
+
+/* 로그인 스타일 */
+:root {
+  /* COLORS */
+  --white: #e9e9e9;
+  --gray: #333;
+  --blue: #0367a6;
+  --lightblue: #008997;
+
+  /* RADII */
+  --button-radius: 0.7rem;
+
+  /* SIZES */
+  --max-width: 758px;
+  --max-height: 420px;
+
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+#login {
+  align-items: center;
+  background-color: var(--white);
+  background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+
+.form__title {
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 1.25rem;
+}
+
+.link {
+  color: var(--gray);
+  font-size: 0.9rem;
+  margin: 1.5rem 0;
+  text-decoration: none;
+}
+
+.container_login {
+  background-color: var(--white);
+  border-radius: var(--button-radius);
+  box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25),
+    0 0.7rem 0.7rem rgba(0, 0, 0, 0.22);
+  height: var(--max-height);
+  max-width: var(--max-width);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.container_login__form {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transition: all 0.6s ease-in-out;
+}
+
+.container_login--signin {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.container_login.right-panel-active .container_login--signin {
+  transform: translateX(100%);
+}
+
+.container_login--signup {
+  left: 0;
+  opacity: 0;
+  width: 50%;
+  z-index: 1;
+}
+
+.container_login.right-panel-active .container_login--signup {
+  animation: show 0.6s;
+  opacity: 1;
+  transform: translateX(100%);
+  z-index: 5;
+}
+/* 소셜로그인 스타일 */
+.login_div{
+  margin-top: 20px;
+}
+.login_list{
+  display: inline;
+  margin: 10px;
+}
+.login_logo{
+  width: 50px;
+}
+
+
+.container_login__overlay {
+  height: 100%;
+  left: 50%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transition: transform 0.6s ease-in-out;
+  width: 50%;
+  z-index: 100;
+}
+
+.container_login.right-panel-active .container_login__overlay {
+  transform: translateX(-100%);
+}
+
+.overlay {
+  background-color: var(--lightblue);
+  background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  left: -100%;
+  position: relative;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+  width: 200%;
+}
+
+.container_login.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+
+.overlay__panel {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+  width: 50%;
+}
+
+.overlay--left {
+  transform: translateX(-20%);
+}
+
+.container_login.right-panel-active .overlay--left {
+  transform: translateX(0);
+}
+
+.overlay--right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.container_login.right-panel-active .overlay--right {
+  transform: translateX(20%);
+}
+
+.btn_log {
+  background-color: var(--blue);
+  background-image: linear-gradient(90deg, var(--blue) 0%, var(--lightblue) 74%);
+  border-radius: 20px;
+  border: 1px solid var(--blue);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  padding: 0.9rem 4rem;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+}
+
+.form > .btn_log {
+  margin-top: 1.5rem;
+}
+
+.btn_log:active {
+  transform: scale(0.95);
+}
+
+.btn_log:focus {
+  outline: none;
+}
+
+.form {
+  background-color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 3rem;
+  height: 100%;
+  text-align: center;
+}
+
+.input {
+  background-color: #fff;
+  border: none;
+  padding: 0.9rem 0.9rem;
+  margin: 0.5rem 0;
+  width: 100%;
+}
+
+@keyframes show {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+/*테이블 스타일*/
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:600,700';
+
+* {font-family: 'Open Sans', sans-serif;}
+
+.rwd-table {
+  margin: auto;
+  min-width: 300px;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+.rwd-table tr:first-child {
+  border-top: none;
+  background: #428bca;
+  color: #fff;
+}
+
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f9fc;
+}
+
+.rwd-table tr:nth-child(odd):not(:first-child) {
+  background-color: #ebf3f9;
+}
+
+.rwd-table th {
+  display: none;
+}
+
+.rwd-table td {
+  display: block;
+}
+
+.rwd-table td:first-child {
+  margin-top: .5em;
+}
+
+.rwd-table td:last-child {
+  margin-bottom: .5em;
+}
+
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 120px;
+  display: inline-block;
+  color: #000;
+}
+
+.rwd-table th,
+.rwd-table td {
+  text-align: left;
+}
+
+.rwd-table {
+  color: #333;
+  border-radius: .4em;
+  overflow: hidden;
+}
+
+.rwd-table tr {
+  border-color: #bfbfbf;
+}
+
+.rwd-table th,
+.rwd-table td {
+  padding: .5em 1em;
+}
+@media screen and (max-width: 601px) {
+  .rwd-table tr:nth-child(2) {
+    border-top: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  .rwd-table tr:hover:not(:first-child) {
+    background-color: #d8e7f3;
+  }
+  .rwd-table td:before {
+    display: none;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child,
+  .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child,
+  .rwd-table td:last-child {
+    padding-right: 0;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    padding: 1em !important;
+  }
+}
+
+
+/* THE END OF THE IMPORTANT STUFF */
+
+/* Basic Styling */
+body_table {
+background: #4B79A1;
+background: -webkit-linear-gradient(to left, #4B79A1 , #283E51);
+background: linear-gradient(to left, #4B79A1 , #283E51);
+}
+h1_table {
+  text-align: center;
+  font-size: 2.4em;
+  color: #f2f2f2;
+}
+.container_table {
+  display: block;
+  text-align: center;
+}
+h3_table {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  font-size: 1.5em;
+  color: #cecece;
+}
+h3_table:before {
+  content: "\25C0";
+  position: absolute;
+  left: -50px;
+  -webkit-animation: leftRight 2s linear infinite;
+  animation: leftRight 2s linear infinite;
+}
+h3_table:after {
+  content: "\25b6";
+  position: absolute;
+  right: -50px;
+  -webkit-animation: leftRight 2s linear infinite reverse;
+  animation: leftRight 2s linear infinite reverse;
+}
+@-webkit-keyframes leftRight {
+  0%    { -webkit-transform: translateX(0)}
+  25%   { -webkit-transform: translateX(-10px)}
+  75%   { -webkit-transform: translateX(10px)}
+  100%  { -webkit-transform: translateX(0)}
+}
+@keyframes leftRight {
+  0%    { transform: translateX(0)}
+  25%   { transform: translateX(-10px)}
+  75%   { transform: translateX(10px)}
+  100%  { transform: translateX(0)}
+}
+
+/*
+    Don't look at this last part. It's unnecessary. I was just playing with pixel gradients... Don't judge.
+*/
+/*
+@media screen and (max-width: 601px) {
+  .rwd-table tr {
+    background-image: -webkit-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: -moz-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: -o-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: -ms-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+    background-image: linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+  }
+  .rwd-table tr:nth-child(odd) {
+    background-image: -webkit-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: -moz-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: -o-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: -ms-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+    background-image: linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+  }
+}*/
+
+/* itemlist 스타일 */
+.item-list-container {
+  width: 80%;
+  margin: 80px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  padding-left: 300px;
+}
+
+.item-card{
+  width: 350px;
+  margin: 0px 70px 70px 0px;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 0.8em;
+}
+
+.item-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.item-category {
+  color: #888;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.item-title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.item-content{
+    color: #848484;
+    font-size: 12px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    height:35px;
+}
+
+.item-price {
+  color: #B18904;
+  font-size: 1.3em;
+  margin-top: 10px;
+  text-align: right;
+}
+
+/* 페이지네이션 스타일 */
+.pagination{
+  width: 300px;
+  margin: 30px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.pagination button{
+    padding: 10px;
+}
+
+/* item-detail 스타일 */
+.detail-wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.top-info{
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 0 0 600px;
+    width: 1200px;
+    margin: 100px auto 150px auto;
+}
+
+.top-info .thumb-img{
+    position: absolute;
+    left: 70px;
+    top: 0px;
+}
+
+.top-info .thumb-img img{
+    border: 1px solid #e8e8e8;
+    width: 70%;
+    height: 70%;
+}
+
+.top-info h2{
+    font-size: 22px;
+    color: #232323;
+    line-height: 26px;
+    padding: 0 0 20px;
+    border-bottom: 1px solid #ccc;
+    margin: 0 0 15px;
+}
+
+.top-info table th,
+.top-info table td{
+    font-size: 13px;
+    color: #444;
+    text-align: left;
+    padding: 14px 15px;
+    border: none;
+}
+
+.top-info table .price{
+    font-size: 18px;
+    color: #999900;
+}
+
+.top-info button{
+    display: inline-block;
+    width: 136px;
+    height: 42px;
+    text-align:center;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    line-height: 42px;
+}
+
+.top-info .cart-in{
+    background-color: #666;
+}
+
+.top-info .buy-in{
+    background-color: #0a56a9;
+}
+
+.middle-info{
+    width: 1200px;
+    margin: 100px auto 150px auto;
+}
+
+.middle-info img{
+    width: 1060px;
+    height: 6106px;
+    padding-left: 70px;
+    margin-top: 50px;
+}
+
+.middle-info p{
+    text-align: center;
+    margin-top: 50px;
+    color: #ccc;
+    font-size: 25px;
+}
+
+/* 장바구니 스타일 (cart_detail)*/
+.cart-form{
+    margin: 0 auto;
+    margin-bottom: 100px;
+}
+
+.cart-form h3{
+    position: relative;
+    top: 70px;
+    left: 150px;
+}
+
+.cart-wrap{
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin: 80px 0 0 300px;
+    padding: 15px;
+    text-align: center;
+}
+
+.cart-wrap thead tr th{
+    height: 50px;
+    font-size: 15px;
+    border: none;
+}
+
+.cart-wrap th{
+    border: none;
+}
+
+.cart-wrap td{
+    font-size: 14px;
+    border: none;
+}
+
+.cart-wrap .cart-img{
+    height: 70px;
+}
+
+.cart-wrap .cart-img img{
+    width: 120px;
+    height: 120px;
+}
+
+.cart-form .cart-bottom{
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.cart-form .keep-shopping{
+    width: 100%;
+    margin-top: 30px;
+    font-size: 13px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.cart-form .cart-bottom button{
+    width: 300px;
+    height: 50px;
+    font-size: 15px;
+    border-radius: 25px;
+}
+
+.cart-form .cart-bottom .cart-check{
+    color: #fff;
+    background-color: #000;
+}
+
+
+/* 질문 목록 스타일 (question_list) */
+.question-list{
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 80px;
+}
+
+.question-list h3{
+    position: relative;
+    top: 70px;
+    left: 150px;
+}
+
+.question-list .question-table{
+   margin: 0 auto;
+}
+
+.question-list .question-table thead tr th{
+   border-top: 2px solid #000;
+}
+
+
+.question-list .question-table, th, td{
+    height: 60px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-right: none;
+    border-collapse: collapse;
+}
+
+.question-list .question-table td{
+    text-align: center;
+    font-size: 14px;
+}
+
+.question-list .question-register{
+    width: 95%;
+    margin-top: 30px;
+    text-align: right;
+}
+
+.question-list .question-register button{
+    width: 100px;
+    height: 45px;
+    font-size: 14px;
+    border-radius: 25px;
+}
+

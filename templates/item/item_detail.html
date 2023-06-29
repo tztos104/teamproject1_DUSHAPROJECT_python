@@ -1,0 +1,135 @@
+{% extends 'base.html' %}{% load humanize %}
+{% load static %}
+{% block content %}
+<div class="detail-wrapper">
+    <!-- 썸네일 + 주문창 -->
+   <div class="top-info">
+          <!-- 주문창 -->
+              <h2>{{ item.item_title }}</h2>
+              <colgroup>
+                  <col style="width:500px;">
+                  <col>
+              </colgroup>
+              <table>
+                  <tbody>
+                    <tr>
+                        <th>제품 정보</th>
+                        <td>{{ item.content }}</td>
+                    </tr>
+                    <tr>
+                        <th>제품 가격</th>
+                        <td class="price"><b>{{ item.item_price }}원</b></td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <th>배송비</th>
+                        <td>2,500원(97,000원 이상 구매시 무료)</td>
+                    </tr>
+                    <tr>
+                        <th>출고예정일</th>
+                        <td>2시 이전 당일출고(주말, 공휴일 제외)</td>
+                    </tr>
+                    <tr>
+                        <th>배송방법</th>
+                        <td>두샤(dusha) / 본사 검수 및 직배송 / CJ대한통운</td>
+                    </tr>
+                  <tr>
+                      <th>결제 가격</th>
+                      <td></td>
+                  </tr>
+                  </tbody>
+              </table>
+             <!-- 제품 이미지 -->
+              <div class="thumb-img">
+                 <a href="">
+                     <img src="{{item.item_image.url}}" alt="썸네일 이미지"/>
+                 </a>
+              </div>
+              <div>
+                  <form action="{% url 'cart:add_cart' item.id %}" method="post">
+                    {{ add_to_cart }}
+                    {% csrf_token %}
+                    <button type="submit" class="cart-in">장바구니</button>
+                  </form>
+                  <form action="{% url 'cart:add_cart' item.id %}" method="post">
+                        <button type="button" class="buy-in">구매하기</button>
+                  </form>
+              </div>
+          </div>
+   </div>
+
+    <!-- 상세 이미지 -->
+<div class="middle-info">
+    <hr>
+    <p>< 제품 상세정보 ></p>
+
+        <a href="">
+            <img src="{{ item.item_content.url}}" alt="이미지 상세 보기"/>
+        </a>
+    </div>
+
+  <!-- 버튼 -->
+
+          <!-- 리뷰 -->
+        <ul class="review-box">
+            <ui>
+              <div id="review-title">
+                <span>리뷰</span>
+                <p>
+                  <i class="xi-star-o"></i>
+                  <i class="xi-star-o"></i>
+                  <i class="xi-star-o"></i>
+                  <i class="xi-star-o"></i>
+                  <i class="xi-star-o"></i>
+                  <i class="xi-angle-down"></i>
+                </p>
+              </div>
+              <ul class="review-wrapper">
+                  <li class="my-review"></li>
+
+                </ul>
+            </ui>
+      </ul>
+</div>
+<div>
+
+<!-- 리뷰 등록 -->
+<h5 class="border-bottom my-3 py-2">
+    {{ question.review_set.count }} 개의 리뷰가 있습니다.
+</h5>
+{% for review in question.review_set.all %}
+<div class="card my-3">
+    <div class="card-body">
+        <div class="card-text" style="white-space: pre-line">
+            <!-- 리뷰 내용 -->
+            {{ review.content }}
+
+        </div>
+        <div class="d-flex justify-content-end">
+            <div class="badge bg-dark text-start">
+                <div class="mb-2">{{ review.author }}</div>
+                <div>{{ review.create_date }}</div>
+            </div>
+        </div>
+        <!-- 글쓴이가 로그인한 사람과 일치하면 -->
+        {% if review.author == request.user %}
+        <div>
+            <!-- 리뷰 수정삭제 -->
+            <div>
+                <a href="{% url 'board:review_modify' review.id %}" class="modify btn btn-sm btn-online-secondary">수정</a>
+                <a href="{% url 'board:review_delete' review.id %}" class="delete btn btn-sm btn-online-secondary">삭제</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+
+
+
+</div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

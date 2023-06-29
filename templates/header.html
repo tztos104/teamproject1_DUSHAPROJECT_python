@@ -1,0 +1,42 @@
+{% load static %}
+
+<header>
+    <div class="top">
+        <a>NEW프래그런스 시트러스 컬렉션</a>
+    </div>
+    <div class="logo">
+        <a href="/">
+            <img src="{% static 'images/logo.png' %}">
+        </a>
+    </div>
+    <div class="gnb">
+        <ul>
+            <li>
+                <small>
+                    <a href="{% url 'account_signup'  %}">회원가입</a>
+                </small>
+            </li>
+            {% if email.is_authenticated %}
+                <li>
+                    <a href="{% url 'account_logout' %}">Logout</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'account_login' %}">
+                        <img src="{% static 'images/my_bk.svg' %}" class="icon">
+                    </a>
+                </li>
+            {% endif %}
+            <li>
+                <a href="{% url 'cart:detail' %}">
+                    <img src="{% static 'images/cart_bk.svg' %}" class="icon">
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="{% static 'images/sch.svg' %}" class="icon">
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>

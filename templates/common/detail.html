@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+
+{% block content %}
+
+<h1>{{ user.id }} : {{ user.username }}</h1>
+
+
+
+  <h1>User Profile</h1>
+  <p>Username: {{ user.username }}</p>
+  <p>Email: {{ user.email }}</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">저장</button>
+  </form>
+
+<hr>
+
+
+<div>
+  <h2>회원등급 현황</h2>
+</div>
+<header>
+  <p>회원등급</p>
+  <p class="big-title">
+    <strong >{{ member_info.user_grade }}</strong>
+  </p>
+</header>
+<div class="current-orderPrice">
+  <div>
+    <p>구매금액 현황<i class="xi-info"></i></p>
+    <p>
+      <span>{{total}}원</span>
+    </p>
+  </div>
+  <div>
+    <div>
+      <span>{{total|intcomma}}원</span>
+      <div class="percentage"></div>
+      <span id="max-price">1000000원</span>
+    </div>
+  </div>
+</div>
+<h5>보유쿠폰: {{ my_profile.coupon }}</h5>
+
+
+
+
+<div class="profile-list-title">
+  <h2 class="big-title">최근 주문 내역</h2>
+  <a href="/member/order"
+    ><span>상세주문내역 & 전체보기</span></a>
+</div>
+
+{% if not my_orders %}
+<div>
+  <span>최근 등록된 주문내역이 없습니다.</span>
+</div>
+{% else %}
+<div>
+  {% for order in my_orders %}
+  <ul>
+    <li>
+      <div>
+        <span>{{ order.order_id.order_date }}</span>
+        <span>총 주문금액 {{ order.order_id.total_price|intcomma }}원</span>
+      </div>
+        <span>주문번호 : {{order.pk}}</span>
+    </li>
+    <li>
+      <div class="thumbNail-wrapper">
+        <img
+          src="../../media/{{ order.product_id.thumbnail }}"
+          alt="product-thumNail"
+        />
+      </div></li>
+  </ul>
+</div>
+      <div>
+        <span>{{ order.product_id.name }}</span>
+        <p>
+          <span>{{ order.product_id.style }}</span>
+          <span>{{ order.size }}</span>
+        </p>
+        <span>{{ order.quantity }} 개</span>
+        <span>{{ order.product_id.price|intcomma }}원</span>
+      </div>{% endfor %}
+{% endif %}
+
+<div>
+  <h2>장바구니</h2>
+  <a href="/cart"><span>장바구니 전체보기 </span></a>
+</div>
+
+{% if not my_carts %}
+<div>
+  <span>장바구니에 담긴 상품이 없습니다. </span>
+  <a href="/">계속 쇼핑하기</a>
+</div>
+{% else %}
+<div>
+  {% for cart in my_carts %}
+  <div>
+    <!-- 상품 img -->
+    <div>
+      <a href="">
+        <img
+          src="../../media/{{ cart.inventory_id.product_id.thumbnail }}"
+          alt="상품이미지"
+        />
+      </a>
+    </div>
+    <div>
+      <!-- item-title-->
+      <div>{{ cart.inventory_id.product_id.name }}</div>
+      <!-- sub-title -->
+      <div>
+        {{ cart.inventory_id.product_id.style }}
+      </div>
+      <!-- price -->
+      <div>{{ cart.inventory_id.product_id.price|intcomma }}원</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+
+{% endblock %}
