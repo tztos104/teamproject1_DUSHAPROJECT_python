@@ -2,10 +2,15 @@ from allauth.account.views import SignupView, PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+
+import item
 from board.models import Question, Answer, Review
 from board.forms import QuestionForm, AnswerForm, ReviewForm
 from django.utils import timezone
 from django.urls import reverse
+
+from item.models import Item
+
 
 def index(request):
     print(request.user)
@@ -122,8 +127,8 @@ def answer_modify(request, answer_id):
 
 # 리뷰 등록
 @login_required(login_url='/login/')
-def review_create(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
+def review_create(request, id):
+    review = get_object_or_404(Item, pk=id)
 
     if request.method == "POST":
         form = ReviewForm(request.POST, request.FILES)
@@ -132,16 +137,18 @@ def review_create(request, question_id):
             review.create_date = timezone.now()
             review.author = request.user
             review.modify_date = timezone.now()
-            review.question = question
             review.photo = request.FILES.get('photo')
+            review.id= id
             review.save()
-            return redirect('board:detail', question_id=question.id)  # 변경된 부분: review.question.id 대신에 question.id 사용
-        else:
-            form = ReviewForm()
+            return redirect('item:item_detail', id=id)
+    else:
+        form = ReviewForm()
 
-    context = {'question': question, 'form': form}
-    return render(request, 'board/detail.html', context)
-    # return redirect('board:detail', question_id = question.id)
+    context = {'id': id, 'form': form}
+    return render(request, 'item/item_detail.html', context)
+
+
+
 
 # 리뷰 수정
 @login_required(login_url='/login/')

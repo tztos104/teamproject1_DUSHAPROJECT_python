@@ -20,13 +20,13 @@
                 <li>
                     <a href="{% url 'account_logout' %}">Logout</a>
                 </li>
-            {% else %}
+             {% endif %}
                 <li>
                     <a href="{% url 'account_login' %}">
                         <img src="{% static 'images/my_bk.svg' %}" class="icon">
                     </a>
                 </li>
-            {% endif %}
+
             <li>
                 <a href="{% url 'cart:detail' %}">
                     <img src="{% static 'images/cart_bk.svg' %}" class="icon">

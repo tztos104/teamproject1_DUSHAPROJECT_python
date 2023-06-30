@@ -53,24 +53,14 @@ header .gnb ul li a{
      font-weight: bold;
 }
 
+
+
+
 /* nav */
 /* 노멀라이즈 시작 */
-body, ul, li {
-  margin: 0;
-  padding: 0;
-  list-style: none;          /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
-}
-
-a {
-  color: inherit;          /* 부모 엘리먼트의 값을 물려받는다 */
-  text-decoration: none;    /* 해당 태그의 text-decoration 속성을 none 값으로 하는 것으로 밑줄을 제거한다 */
-}
-/* 노멀라이즈 끝 */
-/* 2차 이상의 메뉴를 숨기기 */
-.side-bar > ul ul {
-  display: none;
-}
-
+body, ul, li { margin: 0;  padding: 0;   list-style: none;  }        /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
+a { color: inherit;   text-decoration: none;  }
+.side-bar > ul ul { display: none; }
 
 /* 사이드바의 너비와 높이를 변수를 통해 통제 */
 :root {
