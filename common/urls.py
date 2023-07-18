@@ -7,4 +7,5 @@ app_name = 'common'
 urlpatterns = [
     path('<int:id>/', views.detail, name='detail'),
     path('signup/', views.CustomSignupView.as_view(), name='account_signup'),
+    path('membership/', views.membership, name='membership'),
 ]

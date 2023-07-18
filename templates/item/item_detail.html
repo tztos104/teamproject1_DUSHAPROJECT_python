@@ -1,170 +1,90 @@
 {% extends 'base.html' %}{% load humanize %}
 {% load static %}
 {% block content %}
-<div class="detail-wrapper">
+<section id="wrap">
+
     <!-- 썸네일 + 주문창 -->
-   <div class="top-info">
-          <!-- 주문창 -->
-              <h2>{{ item.item_title }}</h2>
-              <colgroup>
-                  <col style="width:500px;">
-                  <col>
-              </colgroup>
-              <table>
-                  <tbody>
+    <div class="top-info">
+        <!-- 제품 이미지 -->
+        <div class="thumb-img shine">
+            <a href="">
+                <figure class="fiimg"><img src="{{item.item_image.url}}" alt="썸네일 이미지"/>
+                </figure>
+            </a>
+        </div>
+        <!-- 주문창 -->
+        <div id="item_i">
+            <div class="item_info1">
+                <h2>{{ item.item_title }}</h2>
+                <colgroup>
+                    <col style="width:500px;">
+                    <col>
+                </colgroup>
+                <table class="item_detail_table">
+                    <tbody>
                     <tr>
-                        <th>제품 정보</th>
-                        <td>{{ item.content }}</td>
+                        <th class="th_abc">제품 정보</th>
+                        <td class="abc">{{ item.content }}</td>
                     </tr>
                     <tr>
-                        <th>제품 가격</th>
-                        <td class="price"><b>{{ item.item_price }}원</b></td>
+                        <th class="th_abc">제품 가격</th>
+                        <td class="price abc"><b>{{ item.item_price|intcomma }}원</b></td>
                     </tr>
                     <br>
                     <tr>
-                        <th>배송비</th>
-                        <td>2,500원(97,000원 이상 구매시 무료)</td>
+                        <th class="th_abc">배송비</th>
+                        <td class="abc">2,500원(97,000원 이상 구매시 무료)</td>
                     </tr>
                     <tr>
-                        <th>출고예정일</th>
-                        <td>2시 이전 당일출고(주말, 공휴일 제외)</td>
+                        <th class="th_abc">출고예정일</th>
+                        <td class="abc">2시 이전 당일출고(주말, 공휴일 제외)</td>
                     </tr>
                     <tr>
-                        <th>배송방법</th>
-                        <td>두샤(dusha) / 본사 검수 및 직배송 / CJ대한통운</td>
+                        <th class="th_abc">배송방법</th>
+                        <td class="abc"> 두샤(dusha) / 본사 검수 및 직배송 / CJ대한통운</td>
                     </tr>
-                  <tr>
-                      <th>결제 가격</th>
-                      <td></td>
-                  </tr>
-                  </tbody>
-              </table>
-             <!-- 제품 이미지 -->
-              <div class="thumb-img">
-                 <a href="">
-                     <img src="{{item.item_image.url}}" alt="썸네일 이미지"/>
-                 </a>
-              </div>
-              <div>
-                  <form action="{% url 'cart:add_cart' item.id %}" method="post">
+                    <tr>
+                        <th class="th_abc">결제 가격</th>
+                        <td class="abc"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <form action="{% url 'cart:add_cart' item.id %}" method="post">
                     {{ add_to_cart }}
                     {% csrf_token %}
-                    <button type="submit" class="cart-in">장바구니</button>
-                  </form>
-                  <form action="{% url 'cart:add_cart' item.id %}" method="post">
-                        <button type="button" class="buy-in">구매하기</button>
-                  </form>
-              </div>
-          </div>
-   </div>
+                    <button type="submit" class="btn_one1 custom-btn">장바구니</button>
 
-<div class="container my-3">
-    <section id="review_form">
-        <h4 class="border-bottom pb-2">리뷰 등록</h4>
-        <form action="" method="post">
-            {% csrf_token %}
-            <!--{{ form.as_p }}--> <!-- input, textarea 태그 포함 -->
-            <!-- 유효성 검사 - 오류 처리 시작 -->
-            {% if form.errors %}
-                <div class="alert alert-danger">
-                {% for field in form %}   <!-- 폼을 필드를 순회하면서  -->
-                    {% if field.errors %} <!-- 필드에 오류가 있으면 -->
-                        {{ field.label }}
-                        {{ field.errors }}  <!-- 에러 출력 -->
-                    {% endif %}
-                {% endfor %}
-                </div>
-            {% endif %}
-            <!-- 오류 처리 끝-->
-            <div class="form-group">
-                <label for="subject">제목</label>
-                <input type="text" id="subject" name="subject" class="form-control"
-                       value="{{ form.subject.value|default_if_none:'' }}">
+                </form>
+                <div class="keep-shopping">
+                    <a href="{% url 'item:item_list' %}">
+                        <button type="submit" class="btn_one1 custom-btn">계속 쇼핑하기
+
+                    </button></a></div>
             </div>
-            <div class="form-group">
-                <label for="content">내용
-                <img src="{{}}" alt="사진"></label>
-                <textarea id="content" name="content" rows="10"
-                          class="form-control mb-3">{{ form.content.value|default_if_none:'' }}</textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">등록</button>
-        </form>
-    </section>
-</div>
-
-<!-- 리뷰 출력 -->
-<h5 class="border-bottom my-3 py-2">
-    {{id.review_set.count }} 개의 리뷰가 있습니다.
-</h5>
-{% for review in id.review_set.all %}
-<div class="card my-3">
-    <div class="card-body">
-        <div class="card-text" style="white-space: pre-line">
-
-            <!-- 리뷰 내용 -->
-            {{ review.content }}
 
         </div>
-        <div class="d-flex justify-content-end">
-            <div class="badge bg-dark text-start">
-                <div class="mb-2">{{ review.author }}</div>
-                <div>{{ review.create_date }}</div>
-            </div>
+
+
+        <!-- 상세 이미지 -->
+        <div class="middle-info">
+            <hr>
+            <p>< 제품 상세정보 ></p>
+
+            <a href="">
+                <img class="item_conentimg" src="{{ item.item_content.url}}" alt="이미지 상세 보기"/>
+            </a>
         </div>
-        <!-- 글쓴이가 로그인한 사람과 일치하면 -->
-        {% if review.author == request.user %}
-        <div>
-            <!-- 리뷰 수정삭제 -->
-            <div>
-                <a href="{% url 'board:review_modify' review.id %}" class="modify btn btn-sm btn-online-secondary">수정</a>
-                <a href="{% url 'board:review_delete' review.id %}" class="delete btn btn-sm btn-online-secondary">삭제</a>
-            </div>
-        </div>
-        {% endif %}
     </div>
-</div>
-{% endfor %}
-
-
-    <!-- 상세 이미지 -->
-<div class="middle-info">
-    <hr>
-    <p>< 제품 상세정보 ></p>
-
-        <a href="">
-            <img src="{{ item.item_content.url}}" alt="이미지 상세 보기"/>
-        </a>
-    </div>
-
-  <!-- 버튼 -->
-
-          <!-- 리뷰 -->
-        <ul class="review-box">
-            <ui>
-              <div id="review-title">
-                <span>리뷰</span>
-                <p>
-                  <i class="xi-star-o"></i>
-                  <i class="xi-star-o"></i>
-                  <i class="xi-star-o"></i>
-                  <i class="xi-star-o"></i>
-                  <i class="xi-star-o"></i>
-                  <i class="xi-angle-down"></i>
-                </p>
-              </div>
-              <ul class="review-wrapper">
-                  <li class="my-review"></li>
-
-                </ul>
-            </ui>
-      </ul>
-</div>
-<div>
+    <!-- 버튼 -->
 
 
 
 
-</div>
+    {% include 'footer.html' %}
+</section>
+
 {% endblock %}
 
 {% block script %}

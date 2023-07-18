@@ -20,13 +20,15 @@
       {{form.login|add_class:"input"|attr:"placeholder:이메일"}}
       {{form.password|add_class:"input"|attr:"placeholder:패스워드"}}
       <div class="login_div">
-          <p><a href="#" class="link">Forgot your password?</a></p>
-     <p><a href="{% url 'account_signup' %}" class="link">회원가입하시겠습니까?</a></p>
+
           {% if redirect_field_value %}
      <div> <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" /></div>
         {% endif %}
      <div><button class="primaryAction btn_log" type="submit" >Sign In</button></div>
           </div>
+          <br>
+           <p><a href="#" class="link">Forgot your password?</a></p>
+     <p><a href="{% url 'account_signup' %}" class="link">회원가입하시겠습니까?</a></p>
 
     </form>
   </div>

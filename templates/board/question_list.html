@@ -1,49 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
+<section id="wrap">
+
 <div class="question-list">
-    <h3>Q&A</h3>
-    <table class="question-table">
+<h2>질문 게시판</h2>
+    <table class="table_one">
         <col style="width:100px;">
         <col style="width:400px;">
         <col style="width:400px;">
         <col style="width:150px;">
-        <thead>
-            <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성일</th>
-                <th>작성자</th>
+        <thead class="thead_one">
+            <tr class="tr_one">
+                <th class="tr_one">번호</th>
+                <th class="tr_one">제목</th>
+                <th class="tr_one">작성일</th>
+                <th class="tr_one">작성자</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="thead_one">
             {% if question_list %}
                 {% for question in question_list %}
-                <tr>
+                <tr class="tr_one">
                     <!-- 글 번호 -->
-                    <td>
+                    <td class="td_one">
                         {{ forloop.counter }}
                     </td>
                     <!-- 글 제목-->
-                    <td>
+                    <td class="td_one">
                         <a href="{% url 'board:detail' question.id %}">{{ question.subject }}</a>
                     </td>
                     <!-- 글 작성일 -->
-                    <td>{{ question.create_date }}</td>
+                    <td class="td_one">{{ question.create_date }}</td>
                     <!-- 작성자 -->
-                    <td>{{ question.author }}</td>
+                    <td class="td_one">{{ question.author }}</td>
                 </tr>
                 {% endfor %}
             {% else %}
-                <tr>
-                    <td>질문이 없습니다.</td>
+                <tr class="tr_one">
+                    <td class="td_one">질문이 없습니다.</td>
                 </tr>
             {% endif %}
         </tbody>
     </table>
 
     <!--질문 등록 버튼 -->
-    <div class="question-register">
-        <button type="submit">
+    <div class=" frame">
+        <button type="submit" class="custom-btn btn_one1">
             <a href="{% url 'board:question_create' %}">질문 등록</a>
         </button>
     </div>
@@ -86,5 +88,44 @@
         {% endif %}
     </ul>
     <!-- 페이징처리 끝 -->
+<!--    검색창 -->
+
+        <form action="" method="get" id="searchForm"> <!-- page, kw get방식으로 요청 -->
+            <input type="hidden" name="kw" id="kw">
+            <input type="hidden" name="page" id="page">
+        </form>
+
+  <!--검색 입력 상자와 찾기버튼-->
+    <div class="search">
+        <div class="col-4 input-group">
+            <input type="text" class="kw form-control" value="{{ kw|default_if_none:'' }}">
+             <button type="button" id="btn_search"
+                        class="custom-btn btn_one1">찾기</button>
+
+        </div>
+    </div>
+
 </div>
+{% include 'footer.html' %}
+
+    </section>
+{% endblock %}
+{% block script %}
+<script>
+    $(document).ready(function(){
+        //페이지 처리
+        $(".page-link").on('click', function(){   //페이지 번호를 클릭하면
+            $("#page").val($(this).data("page")); //해당 페이지 번호를 page 필드에 가져옴
+            $("#searchForm").submit();            //폼을 전송
+        });
+
+        //검색 처리
+        $("#btn_search").on('click', function(){
+           let text = $(".kw").val();          //검색어 값
+           $("#kw").val(text);                 //폼의 kw 필드에 설정
+           $("#page").val(1);                  //1페이지를 page 필드에 설정
+           $("#searchForm").submit();          //폼을 전송
+        });
+    });
+</script>
 {% endblock %}

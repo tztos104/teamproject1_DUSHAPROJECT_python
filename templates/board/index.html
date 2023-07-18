@@ -1,46 +1,22 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static %}{% load humanize %}
 {% block content %}
+{% block scripts%}
+<script>
+ {% if messages %}
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+    {% endif %}
 
-<section id="a" xmlns="http://www.w3.org/1999/html">
-    <section id="b">
-        <div class="intro_bg">
-            <video src="{% static '/video/bg.mp4' %}" autoplay muted loop></video>
-            <div class="header_index">
-                <div class="logo">
-                    <a href="/">
-                        <img src="/static/images/logo.png">
-                    </a>
-                </div>
-                <div class="gnb">
-                    <!--                <div class="searchArea">
-                                        <form>
-                                            <input type="search" placeholder="Search">
-                                            <span>검색</span>
-                                        </form>
-                                    </div>-->
-                    <ul class="nav_intro">
-                        <!--                    {% if email.is_authenticated %}-->
-                        <!--                    <li><a href="{% url 'common:logout' %}"><img src="{% static '/images/cart_bk.svg' %}" class="icon"></a></li>-->
-                        <!--                        Logout-->
-                        <!--                    </a></li>-->
-                        <!--                    {% else %}-->
-                        <!--                    <li><a href="{% url 'account_login' %}"><img src="{% static '/images/my_bk.svg' %}" class="icon"></a></li>-->
-                        <!--                    {% endif %}-->
-                        <!--                    <li><a href="{% url 'cart:detail'%}"><img src="{% static '/images/cart_bk.svg' %}" class="icon"></a></li>-->
-                        <!--                    <li><a href=""><img src="{% static '/images/sch.svg' %}" class="icon"></a></li>-->
+</script>
+{%endblock%}
+<p id="intro_text" class="flashing">DUSHA even makes your soul smell good.</p>
+  <video src="{% static '/video/bg.mp4' %}" autoplay muted loop></video>
 
-                        <li><a href="#">SEARCH</a></li>
-                        <li><a href="{% url 'account_login' %}">LOGIN</a></li>
-                        <li><a href="{% url 'cart:detail'%}">CART</a></li>
-                        <li><a href="{% url 'account_login' %}">SIGNUP</a></li>
-                    </ul>
-                </div>
-            </div>
-            <p class="intro_text">DUSHA even makes your soul smell good.</p>
-        </div>
-
-    </section>
+<section id="container" >
+<section id="wrap" >
+ </section>
     <section id="c">
         <ul class="amount">
             <li>
@@ -69,6 +45,7 @@
             </li>
         </ul>
     </section>
+
     <section id="d">
         <div class="main_text0">
             <h1>DUSHA</h1>
@@ -102,7 +79,7 @@
                     </div>
                     <div class="contents1_bold">
                         <p>
-                            <향기에 깊이를 더해주는 시향 컨텐츠>
+                            향기에 깊이를 더해주는 시향 컨텐츠
                         </p>
                     </div>
                     <div class="contents2">
@@ -122,7 +99,7 @@
                         <img src="static/images/truck.png">
                     </div>
                     <div class="contents1_bold">
-                        <꼼꼼하고 안전한 포장, 당일 발송>
+                        꼼꼼하고 안전한 포장, 당일 발송
                     </div>
                     <div class="contents2">
                         두샤에서만 제공하는 커스텀 선물 포장으로 고객님드르이 소중한 마음까지 전달될 수 있도록 노력하고 있습니다.
@@ -137,7 +114,33 @@
                 </li>
             </ul>
         </div>
+    </section>
 
+<section id="g">
+    <section id="best_item2">
+        <div class="bi_title">
+            <h3 id="bi_text1">BEST & HOT</h3>
+            <h2 id="bi_text">가장 주목받는 베스트 향수</h2>
+        </div>
+        <!-- 1 -->
+        <section id="bi_detail">
+            <div class="slider">
+             {% for item in best_list %}
+            <div class="bs1">
+                 <div class="item-title">{{item.item_title}}</div>
+                <div class="shine">
+                <a href="{% url 'item:item_detail' item.id %}" > <figure><img src="{{item.item_image.url}}" alt="베스트 상품" width="300" height="300"></figure></a>
+                 </div>
+                    <div class="item-subtitle color-8D">{{item.content}}</div>
+                <div>{{item.item_price|intcomma}}원</div>
+            </div>
+                    {% endfor %}
+            </div>
+
+        </section>
+ </section>
+
+    <section id="4">
         <div class="main_text1">
             <h1>OUR SERVICE</h1>
             <div class="contents1">
@@ -171,11 +174,14 @@
                 <li></li>
             </ul>
         </div>
-        </div>
+
 
     </section>
-    <section id="4"></section>
+
     <section id="5"></section>
+    </section>
+{% include 'footer.html' %}
+
 </section>
 <!--<div class="top"><a>NEW프래그런스 시트러스 컬렉션</a></div>&ndash;&gt;-->
 
@@ -186,4 +192,5 @@
 
 
 {% endblock %}
+
 {% include 'footer.html' %}

@@ -8,6 +8,7 @@ class Order(models.Model):
     email = models.ForeignKey(User, on_delete=models.CASCADE)
     realname = models.CharField(max_length=50, blank=False)
     address = models.CharField(max_length=250)
+    phone = models.CharField(max_length=20)
     amount = models.IntegerField(default=0)  # 상품 금액
     shipping_price = models.IntegerField(default=0)  # 배송비
     total_price = models.IntegerField(default=0)  # 총 결제 금액

@@ -1,42 +1,30 @@
 {% load static %}
-
 <header>
-    <div class="top">
-        <a>NEW프래그런스 시트러스 컬렉션</a>
-    </div>
-    <div class="logo">
-        <a href="/">
-            <img src="{% static 'images/logo.png' %}">
-        </a>
-    </div>
-    <div class="gnb">
-        <ul>
-            <li>
-                <small>
-                    <a href="{% url 'account_signup'  %}">회원가입</a>
-                </small>
-            </li>
-            {% if email.is_authenticated %}
-                <li>
-                    <a href="{% url 'account_logout' %}">Logout</a>
-                </li>
-             {% endif %}
-                <li>
-                    <a href="{% url 'account_login' %}">
-                        <img src="{% static 'images/my_bk.svg' %}" class="icon">
-                    </a>
-                </li>
+    <div class="header_wrap">
 
-            <li>
-                <a href="{% url 'cart:detail' %}">
-                    <img src="{% static 'images/cart_bk.svg' %}" class="icon">
+        <div class="header_index">
+            <div class="logo">
+                <a href="/">
+                    <img src="/static/images/logo.png">
                 </a>
-            </li>
-            <li>
-                <a href="">
-                    <img src="{% static 'images/sch.svg' %}" class="icon">
-                </a>
-            </li>
-        </ul>
+            </div>
+            <div class="gnb">
+                <ul class="nav_intro">
+
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                    <li><a href="{% url 'common:detail' user.id %}">회원정보</a></li>
+                    <li><a href="{% url 'cart:detail'%}">CART</a></li>
+                    {%else%}
+                    <li><a href="{% url 'account_login' %}">LOGIN</a></li>
+                    <li><a href="{% url 'cart:detail'%}">CART</a></li>
+                    <li><a href="{% url 'account_signup' %}">SIGNUP</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
     </div>
+
+
 </header>

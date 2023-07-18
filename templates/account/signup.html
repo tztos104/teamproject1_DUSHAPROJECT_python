@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
-{% block head_title %}{% trans "회원가입" %}{% endblock %}
 {% load widget_tweaks %}
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
+
+
 <section id="login">
 <div class="container_login right-panel-active">
- <h2 class="form__title">회원가입</h2>
+
 <div class="container_login__form container_login--signin">
 
 
@@ -16,15 +16,16 @@
 <div ><img class="login_img" src="{% static 'images/Naver.png'%}"></div>
 <div ><img class="login_img" src="{% static 'images/Google.png'%}"></div>
 
-  <button type="submit" class="btn_log">{% trans "Sign Up" %} &raquo;</button>
+
 </form>
 
 </div>
 
 <div class="container_login__form container_login--signup">
-  <p>이미계정이 있으신가요?  <a href="{{ login_url }}">바로 로그인하세요.</a></p>
+
  <form class="login formsignup form" method="POST" action="{% url 'account_signup' %}" id="form2">
- {% csrf_token %}
+  <p class="loing_p">이미계정이 있으신가요?  <span class="login_span"><a href="{{ login_url }}" >바로 로그인하세요.</a></span></p>
+     {% csrf_token %}
   {% include 'form_errors.html' %}
   {{form.username|add_class:"input"|attr:"placeholder:아이디"}}
   {{form.email|add_class:"input"|attr:"placeholder:이메일"}}
@@ -40,10 +41,10 @@
   <div class="container_login__overlay">
     <div class="overlay">
       <div class="overlay__panel overlay--left">
-        <button class="btn_log" id="signIn">간편 로그인</button>
+        <button class="btn_log" id="signIn">간편 가입</button>
       </div>
       <div class="overlay__panel overlay--right">
-        <button class="btn_log" id="signUp">로그인</button>
+        <button class="btn_log" id="signUp">회원 가입</button>
       </div>
     </div>
   </div>

@@ -2,6 +2,8 @@ from django.db import models
 # AbstractUser 사용
 from django.contrib.auth.models import AbstractUser
 
+from coupon.models import Coupon
+
 
 # AbstractUser 상속받는 유저 클래스 생성
 class User(AbstractUser):
@@ -17,7 +19,10 @@ class Member(models.Model):
     address = models.CharField(max_length=50, null=True)
     birth = models.DateField(null=True)
     user_grade = models.CharField(default=0, max_length=50 ) # normal, platinum, mvp (3등급)
-    coupon = models.CharField(max_length=100, default=None)
+    coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, null=True, blank=True)
+
 
     def __str__(self):
+
         return self.nickname
+

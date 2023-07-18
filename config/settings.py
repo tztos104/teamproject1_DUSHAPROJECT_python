@@ -90,7 +90,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -176,10 +176,10 @@ ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5        #5번실패시 지정한시간만큼 사
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 60 # 1분동안 사용못함
 
 ACCOUNT_SESSION_REMEMBER = True #브라우저를 닫아도 세션기록 유지
-SESSION_COOKIE_AGE = 300
 SOCIALACCOUNT_LOGIN_ON_GET = True
 ACCOUNT_LOGOUT_REDIRECT_URL ='/'
 ACCOUNT_LOGOUT_ON_GET = True
 
 # 기본 유저모델변경
 AUTH_USER_MODEL = "common.User"
+

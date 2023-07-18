@@ -1,4 +1,6 @@
 from django import forms
+
+from common.models import Member
 from order.models import Order
 
 
@@ -6,6 +8,11 @@ from order.models import Order
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['realname', 'email', 'address']
+        fields = ['realname', 'email', 'address', 'phone']
 
-        email = forms.CharField(max_length=100)
+
+
+class MemberForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ['nickname', 'phone', 'address', 'birth', 'user_grade', 'coupon']

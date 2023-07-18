@@ -23,6 +23,8 @@ def add_coupon(request):
             request.session['coupon_id'] = None
     return redirect('cart:detail')
 
+
+
 # 맴버쉽 설정
 @login_required(login_url='/login/')
 def grade(request):

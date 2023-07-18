@@ -49,7 +49,7 @@ class Item(models.Model):
     soldout = models.BooleanField(default=False)
     create_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(auto_now=True)
-    item_likes = models.IntegerField(default=0)
+    item_likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='item_likes', blank=True)
     item_image = models.ImageField(upload_to="item/item_img/%Y/%m/%d") #제품 메인사진
     sales = models.IntegerField(default=0) #판매량
     item_content = models.ImageField(upload_to='item/item_content/%Y/%m/%d') #제품 상세 사진
